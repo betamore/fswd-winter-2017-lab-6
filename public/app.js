@@ -4,3 +4,5 @@ require('bootstrap/css/bootstrap-theme.css!');
 
 var $ = require('jquery');
 window.$ = $;
+
+$('body').show();
