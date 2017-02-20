@@ -24,3 +24,15 @@
 * Run npm test, commit, and push
 * Repeat until you can no longer come up with additional test cases
 * Finally, submit a pull request to the original Betamore repository with your fancy new code and tests!
+
+## Building an Authentication system
+
+Consider what your authentication system is going to need:
+
+* A place to store users' credentials
+* A way for existing users to login
+* A way for new users to sign up
+
+Think about what needs to happen for each of those. What happens when a user tries to login with credentials that do not exist?
+What happens when a logged in user tries to login? Make a list of all the possible wacky scenarios! Each scenario could make for
+a good test.
