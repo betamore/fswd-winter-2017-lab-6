@@ -1,0 +1,8 @@
+extends ../layout.pug
+block body
+  h1= task.name
+
+  form.form-inline(method="POST" action="/tasks/" + task.id)
+    div.form-group
+      input.form-control(type="text" name="todo" value=task.name)
+    button#add.btn.btn-default Update Task

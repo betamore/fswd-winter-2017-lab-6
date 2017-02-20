@@ -1,0 +1,15 @@
+doctype html
+html
+  head
+    script(src="/jspm_packages/system.js")
+    script(src="/config.js")
+    script
+      | System.import('app');
+    title Hello world!
+  body(style="display: none")
+    div.container
+      .page-header
+        block header
+          p Header
+      != messages()
+      block body

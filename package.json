@@ -1,0 +1,55 @@
+{
+  "name": "fswd-winter-2016-lab-3",
+  "version": "1.0.0",
+  "description": "Full Stack Web Development - Lab 3: Wild Wild Web",
+  "repository": "github:betamore/fswd-lab-3",
+  "main": "lib/index.js",
+  "scripts": {
+    "lint": "eslint .",
+    "dev": "NODE_ENV=development node ./lib/index.js",
+    "test": "NODE_ENV=test istanbul cover -x models/index.js _mocha",
+    "start": "node ./lib/index.js",
+    "postinstall": "jspm install",
+    "jspm": "jspm",
+    "sequelize": "sequelize"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "cheerio": "^0.22.0",
+    "eslint": "^3.15.0",
+    "istanbul": "^0.4.5",
+    "lodash": "^4.17.4",
+    "mocha": "^2.4.5",
+    "supertest": "^2.0.0"
+  },
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "connect-flash": "^0.1.1",
+    "connect-redis": "^3.1.0",
+    "cookie-parser": "^1.4.3",
+    "express": "^4.13.4",
+    "express-messages": "^1.0.1",
+    "express-session": "^1.14.1",
+    "jspm": "^0.16.45",
+    "pg": "^6.1.0",
+    "pug": "^2.0.0-beta6",
+    "sequelize": "^3.24.3",
+    "sequelize-cli": "^2.4.0"
+  },
+  "jspm": {
+    "directories": {
+      "baseURL": "public"
+    },
+    "dependencies": {
+      "bootstrap": "github:twbs/bootstrap@^3.3.7",
+      "css": "github:systemjs/plugin-css@^0.1.27",
+      "jquery": "npm:jquery@^3.1.0"
+    },
+    "devDependencies": {
+      "typescript": "npm:typescript@^2.0.7"
+    }
+  }
+}

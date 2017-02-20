@@ -1,0 +1,15 @@
+extends ./layout.pug
+block header
+  h1 Hello world!
+  p.lead
+    | This is coming from the
+    code views/index.pug
+    | file
+
+block body
+  if !true
+    p It's true!
+  else
+    p It's false.
+
+  include ./includes/task_form

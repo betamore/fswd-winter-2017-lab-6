@@ -1,0 +1,16 @@
+extends ../layout.pug
+block body
+  h1 Tasks!
+
+  if tasks.length
+    ul
+      each task in tasks
+        li
+          a(href="/tasks/" + task.id)
+            = task.name
+            if task.isCompleted()
+              span.glyphicon.glyphicon-ok
+  else
+     p.lead No tasks.
+
+  include ../includes/task_form
