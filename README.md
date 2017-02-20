@@ -1,5 +1,7 @@
 # Full Stack Web Development - Lab 6: Testing and Pull Requesting
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/betamore/fswd-winter-2017-lab-6.svg)](https://greenkeeper.io/)
+
 ## Setup
 
 * Pair up (or three up if an odd number)
