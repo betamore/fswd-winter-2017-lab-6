@@ -1,12 +1,20 @@
 'use strict';
 module.exports = function(sequelize, DataTypes) {
   var Task = sequelize.define('Task', {
-    name: DataTypes.STRING,
+    name: {
+        type: DataTypes.STRING,
+        validate: {
+            notEmpty: true
+        }
+    },
     completedAt: DataTypes.DATE
   }, {
     classMethods: {
+        loadCompleted: function() {
+            return this.findAll({ where: { completedAt: { not: null }}});
+        },
     //   associate: function(models) {
-    //     // associations can be defined here
+    //       models.Task.belongsTo(models.User);
     //   }
     },
     instanceMethods: {
@@ -16,6 +24,24 @@ module.exports = function(sequelize, DataTypes) {
       markCompleted: function() {
         return this.update({ completedAt: new Date() });
       }
+    },
+    scopes: {
+        completed: {
+            where: {
+                completedAt: {
+                    not: null
+                }
+            }
+        },
+        lastWeek: function() {
+            return {
+                where: {
+                    completedAt: {
+                        $lt: new Date()
+                    }
+                }
+            };
+        }
     }
   });
   return Task;

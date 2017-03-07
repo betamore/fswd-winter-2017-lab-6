@@ -12,4 +12,17 @@ block body
   else
     p It's false.
 
+  div(ng-controller="CounterCountController as vm")
+    p {{ vm.getCount() }} counters.
+
+  counter-block-component(initial-value="{ counter: 16 }")
+  hr
+  counter-block-component
+  hr
+
+  counter-block-component
+
+  hr
+  hr
+  counter-block-component
   include ./includes/task_form
