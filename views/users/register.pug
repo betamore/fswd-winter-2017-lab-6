@@ -1,0 +1,27 @@
+extends ../layout.pug
+
+block body
+  .row(ng-controller="RegistrationController as rc")
+    .col-md-6
+        form(name="registration")
+          .form-group
+            label Username
+            input.form-control(type="text" name="username" ng-model="rc.username" required unique-username ng-model-options="{ updateOn: 'blur default', debounce: { blur: 0, default: 1000 }}")
+          .form-group
+            label Email
+            input.form-control(type="email" name="email" ng-model="rc.email")
+          .form-group(ng-class="{ 'has-error': password !== password_confirm }")
+            label Password
+            input.form-control(type="password" name="password" ng-model="rc.password")
+          .form-group(ng-class="{ 'has-error': password !== password_confirm }")
+            label Password (confirm)
+            input.form-control(type="password" name="password_confirm" ng-model="rc.password_confirm")
+          div.bg-danger(ng-show="registration.$invalid && registration.$dirty")
+            p There's an error!
+            p(ng-show="registration.$error.matched") Passwords need to match!
+          button.btn.btn-default(type="submit" ng-disabled="registration.$invalid") Register
+    .col-md-6
+      .well
+        pre
+            code
+              | {{ registration | json }}

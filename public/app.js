@@ -34,7 +34,7 @@ angular.module('fswd')
     });
 
 angular.module('fswd')
-    .service('CounterService', function($log, $http) {
+    .service('CounterService', function($log) {
         var counterCount = 0;
 
         this.addCounter = function() {
@@ -45,10 +45,6 @@ angular.module('fswd')
         this.getCounter = function() {
             return counterCount;
         };
-
-        this.getTasks = function() {
-            return $http.get('/tasks')
-        }
     });
 
 angular.module('fswd')
@@ -60,4 +56,36 @@ angular.module('fswd')
         }
     });
 
-angular.bootstrap(document, ['fswd']);
+angular.module('fswd')
+    .controller('RegistrationController', function($scope) {
+        var vm = this;
+
+        $scope.$watch(function() {
+            return [vm.password, vm.password_confirm];
+        }, function(newVal) {
+            if (newVal) {
+              var valid = vm.password === vm.password_confirm;
+              $scope.registration.$setValidity("matched", valid);
+            }
+        }, true);
+    });
+
+angular.module('fswd')
+    .directive('uniqueUsername', function($http) {
+        return {
+            restrict: 'A',
+            require: '^ngModel',
+            link: function(scope, element, attrs, ctrl) {
+                console.log(ctrl.$validators);
+                ctrl.$asyncValidators.uniqueUsername = function(modelValue) {
+                    console.log('Validating: "' + modelValue + '"');
+                    return $http.post('/users/available', { username: modelValue });
+                };
+            }
+        };
+    });
+
+angular.element(function() {
+    console.log('Bootstrapping!');
+    angular.bootstrap(document, ['fswd'])
+});

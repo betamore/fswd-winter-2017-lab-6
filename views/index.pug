@@ -15,12 +15,14 @@ block body
   div(ng-controller="CounterCountController as vm")
     p {{ vm.getCount() }} counters.
 
-  counter-block-component(initial-value="{ counter: 16 }")
+  counter-block-component(initial-value="{ counter: 16 }" ng-show="$ctrl.counter > 12")
   hr
-  counter-block-component
+  p Hidden counter
+  counter-block-component(ng-show="false")
   hr
 
-  counter-block-component
+  p Hidden counter
+  counter-block-component(ng-hide="true")
 
   hr
   hr
