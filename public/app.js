@@ -13,12 +13,29 @@ require('angular-route');
 angular.module('fswd', ['ngRoute']);
 
 angular.module('fswd')
-    .controller('TasksController', function($http) {
+    .controller('TasksController', function(TasksService) {
         var vm = this;
-        $http.get('/tasks')
-            .then(function(response) {
-                vm.tasks = response.data;
-            })
+        TasksService.getTasks()
+            .then(function(tasks) {
+                vm.tasks = tasks;
+            });
+    });
+
+angular.module('fswd')
+    .service('TasksService', function($http) {
+        this.getTask = function(task_id) {
+            return $http.get('/tasks/' + task_id)
+                .then(function(response) {
+                    return response.data;
+                });
+        };
+
+        this.getTasks = function() {
+            return $http.get('/tasks')
+                .then(function(response) {
+                    return response.data;
+                });
+        };
     });
 
 angular.module('fswd')
@@ -29,15 +46,26 @@ angular.module('fswd')
             controller: 'TasksController'
         });
         $routeProvider.when('/tasks/:task_id', {
-            controller: function($routeParams, $http) {
+            controller: function(task) {
                 var vm = this;
-                $http.get('/tasks/' + $routeParams.task_id)
-                    .then(function(response) {
-                        vm.task = response.data;
-                    })
+                vm.task = task;
             },
             controllerAs: '$ctrl',
-            template: '<h1>TASK {{$ctrl.task.name}}</h1>'
+            template: '<h1>TASK {{$ctrl.task.name}}</h1>',
+            resolve: {
+                task: function(TasksService, $route) {
+                    return TasksService.getTask($route.current.params.task_id);
+                }
+            }
+        });
+
+        $routeProvider.otherwise('/tasks');
+    });
+
+angular.module('fswd')
+    .run(function($rootScope) {
+        $rootScope.$on('$routeChangeError', function(event, current, previous, rejection) {
+            alert('Task not found!');
         });
     });
 
