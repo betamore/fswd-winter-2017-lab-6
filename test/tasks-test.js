@@ -12,9 +12,9 @@ describe('tasks', function() {
         agent = supertest.agent(server);
     });
 
-    after(function() {
-        return models.Task.truncate();
-    })
+    // after(function() {
+    //     return models.Task.truncate();
+    // })
 
     it('should 404 for an unknown task', function() {
         return agent
@@ -79,8 +79,8 @@ describe('tasks', function() {
                 })
                 .then(function(updatedTask) {
                     updatedTask.isCompleted().should.be.true;
-                })
-        })
+                });
+        });
     })
 
     describe('when there are tasks', function() {
@@ -117,7 +117,7 @@ describe('tasks', function() {
         });
 
         describe('when it is uncompleted', function() {
-            it('should not display a checkbox', function() {
+            it('should not display a checkmark', function() {
                 return agent
                     .get(`/tasks`)
                     .then(function(response) {

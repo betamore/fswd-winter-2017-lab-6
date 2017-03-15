@@ -3,13 +3,44 @@ require('bootstrap/css/bootstrap.css!');
 require('bootstrap/css/bootstrap-theme.css!');
 
 var $ = require('jquery');
-window.$ = $;
+// window.$ = $;
 
 $('body').show();
 
 var angular = require('angular');
+require('angular-route');
 
-angular.module('fswd', []);
+angular.module('fswd', ['ngRoute']);
+
+angular.module('fswd')
+    .controller('TasksController', function($http) {
+        var vm = this;
+        $http.get('/tasks')
+            .then(function(response) {
+                vm.tasks = response.data;
+            })
+    });
+
+angular.module('fswd')
+    .config(function($routeProvider) {
+        $routeProvider.when('/tasks', {
+            templateUrl: '/partials/tasks',
+            controllerAs: '$ctrl',
+            controller: 'TasksController'
+        });
+        $routeProvider.when('/tasks/:task_id', {
+            controller: function($routeParams, $http) {
+                var vm = this;
+                $http.get('/tasks/' + $routeParams.task_id)
+                    .then(function(response) {
+                        vm.task = response.data;
+                    })
+            },
+            controllerAs: '$ctrl',
+            template: '<h1>TASK {{$ctrl.task.name}}</h1>'
+        });
+    });
+
 angular.module('fswd')
     .controller('CounterController', function(CounterService) {
         var count;
@@ -76,7 +107,6 @@ angular.module('fswd')
             restrict: 'A',
             require: '^ngModel',
             link: function(scope, element, attrs, ctrl) {
-                console.log(ctrl.$validators);
                 ctrl.$asyncValidators.uniqueUsername = function(modelValue) {
                     console.log('Validating: "' + modelValue + '"');
                     return $http.post('/users/available', { username: modelValue });

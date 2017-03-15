@@ -7,9 +7,9 @@ var server = require('../lib/server');
 var request = require('supertest');
 
 describe('server', function() {
-    it('should response on /', function() {
+    it('should respond on /', function() {
         return request(server)
-            .get('/')
+            .get('/') // => GET http://localhost:8000/
             .expect(200);
     });
     // ['David', 'John', 'Lee'].forEach(function(name) {

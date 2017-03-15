@@ -8,11 +8,15 @@ System.config({
   },
 
   map: {
-    "angular": "github:angular/bower-angular@1.6.2",
+    "angular": "github:angular/bower-angular@1.5.11",
+    "angular-route": "github:angular/bower-angular-route@1.5.11",
     "bootstrap": "github:twbs/bootstrap@3.3.7",
     "css": "github:systemjs/plugin-css@0.1.27",
     "jquery": "npm:jquery@3.1.0",
     "typescript": "npm:typescript@2.2.0",
+    "github:angular/bower-angular-route@1.5.11": {
+      "angular": "github:angular/bower-angular@1.5.11"
+    },
     "github:jspm/nodelibs-assert@0.1.0": {
       "assert": "npm:assert@1.4.1"
     },

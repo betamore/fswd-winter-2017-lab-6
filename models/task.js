@@ -23,7 +23,7 @@ module.exports = function(sequelize, DataTypes) {
       },
       markCompleted: function() {
         return this.update({ completedAt: new Date() });
-      }
+      },
     },
     scopes: {
         completed: {
